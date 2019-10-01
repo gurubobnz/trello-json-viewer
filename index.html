@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="board" data-bind="trelloBoard: board, with: board">
+      <div class="header">
+        <span><a href="https://www.github.com/">Offline Trello Browser</a></span>
+        <span>by <a target="_blank" href="https://twitter.com/intent/tweet?via=gurubobnz&hashtags=TrelloOffline">@gurubobnz</a></span>
+      </div>
+      <div class="d-flex justify-content-between board-header">
+        <div class="board-header-btn mod-board-name">
+          <span class="board-header-btn-text" data-bind="text: name"></span>
+        </div>
+      </div>
+      <div id="content">
+        <div class="board-wrapper">
+          <div data-bind="foreach: lists">
+            <!--ko ifnot: closed -->
+            <div class="list-wrapper">
+              <div class="list">
+                <div class="list-header">
+                  <span class="list-header-name" data-bind="text: name"></span>
+                </div>
+                <div class="list-cards">
+                  <div data-bind="foreach: cards">
+                    <div data-bind="click: $parents[1].openCard, template: 'card'"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /ko -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ko if: currentlyOpenCard -->
+      <div class="open-card" data-bind="with: currentlyOpenCard">
+        <div class="background" data-bind="click: $parent.closeCard"></div>
+        <div class="window">
+          <div class="window-header">
+            <h2 class="card-title" data-bind="text: name"></h2>
+            <p class="quiet u-inline-block u-bottom">in list <a href="#" data-bind="text: function() { return $parent.getListById(idList).name }()"></a></p>
+          </div>
+          <div class="window-main-col">
+            <div class="row">
+              <div class="col">
+                <h3>Description</h3>
+
+              </div>
+            </div>
+            <div class="px-4" data-bind="foreach: actions">
+              <div data-bind="template: 'action'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /ko -->
+    </div>
+    
+  </body>
+
+  <script type="text/html" id="card">
+    <div class="list-card">
+      <div class="list-card-cover" data-bind="trelloCardCover: $data"></div>
+      <div class="list-card-details">
+        <span class="list-card-title" data-bind="text: name"></span>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/html" id="action">
+    <div class="row no-gutters d-flex">
+      <div class="col flex-grow-0 pr-2 icon-column">
+        <!-- ko if: member.avatarUrl -->
+        <img class="avatar" data-bind="attr:{src: member.avatarUrl}" />
+        <!-- /ko -->
+        <!-- ko ifnot: member.avatarUrl -->
+        <span class="avatar d-flex align-items-center justify-content-center">
+          <span data-bind="text: member.initials"></span>
+        </span>
+        <!-- /ko -->
+      </div>
+      <div class="col">
+        <p>
+          <strong data-bind="text: member.fullName"></strong>
+          <span class="quiet" data-bind="text: date"></span>
+        </p>
+        <p data-bind="text: ko.toJSON($data, null, 2)"></p>
+      </div>
+    </div>
+  </script>
+
+
+
+</html>

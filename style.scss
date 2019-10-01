@@ -1,0 +1,224 @@
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+
+html, body, .board {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+#content {
+    position: relative;
+}
+
+.board {
+    margin-bottom: 8px;
+    overflow-x: auto;
+    // overflow-y: hidden;
+    padding-bottom: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    > .header {
+        background-color: rgba(0,0,0,.15);
+        color: white;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        min-height: 40px;
+        justify-content: space-between;
+        padding: 4px 8px;
+        position: sticky;
+        left: 0;
+        width: 100%;
+        a {
+            color: white;
+            font-weight: bold;
+        }
+    }
+}
+
+.board-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;    
+    padding-left: 6px;
+}
+
+.board-header {
+    font-weight: 600;
+    height: auto;
+    padding: 8px 4px 4px 8px;
+    position: relative;
+    transition: padding .1s ease-in;    
+}
+
+.board-header-btn {
+    border-radius: 3px;
+    color: #fff;
+    cursor: default;
+    float: left;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 4px 0;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+}
+
+.board-header-btn.mod-board-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 32px;
+    white-space: nowrap;
+}
+
+.board-header-btn.mod-board-name .board-header-btn-text {
+    padding: 0 12px;
+}
+
+.list-wrapper {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    width: 272px;
+    margin: 0 2px;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.list {
+    background-color: #ebecf0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal;
+}
+
+.list-header {
+    flex: 0 0 auto;
+    padding: 10px 8px;
+    position: relative;
+    min-height: 20px;
+}
+
+.list-header-name {
+    color: #172b4d;
+    border-radius: 3px;
+    box-shadow: none;
+    font-weight: 600;
+    margin: -4px 0;
+    height: 20px;
+    min-height: 20px;
+    padding: 4px 8px;
+    resize: none;
+    max-height: 256px;
+    display: inline-block;
+}
+
+.list-cards {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 4px;
+    padding: 0 4px;
+    z-index: 1;
+    min-height: 0;
+}
+
+.list-card {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.list-card:hover {
+    background-color: #f4f5f7;
+}
+
+.list-card-title {
+    color: #172b4d;
+}
+
+
+.list-card-details {
+    overflow: hidden;
+    padding: 6px 8px 2px;
+    position: relative;
+    z-index: 10;
+}
+
+.open-card {
+    display: flex;
+    justify-content: center;
+    .background {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 10;
+        background-color: rgba(0,0,0,0.64);
+    }
+    .window {
+        background-color: #f4f5f7;
+        border-radius: 2px;
+        margin: 48px 0 80px;
+        overflow: hidden;
+        position: relative;
+        width: 768px;
+        z-index: 25;
+    }
+    .window-header {
+        margin: 12px 40px 8px 56px;
+        min-height: 32px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .icon-column {
+        min-width: 40px;
+    }
+}
+
+
+.quiet {
+    &, a {
+        color: #5e6c84;
+    }
+    a {
+        text-decoration: underline;
+    }
+}
+
+.avatar {
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #dfe1e6;
+    color: #172b4d;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
