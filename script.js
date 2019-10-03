@@ -185,12 +185,14 @@ ko.bindingHandlers.trelloCardCover = {
 
         var coverAttachment = card.actions().filter(action => action.data.attachment && action.data.attachment.id == card.cover.idAttachment)
         if(coverAttachment.length == 1) {
-            var backgroundImage = coverAttachment[0].data.attachment.url
+            var backgroundImage = coverAttachment[0].data.attachment.previewUrl
             if(backgroundImage) {
+                var height = backgroundImage.match(/\/[0-9]+?x([0-9]+)\//)[1]
+                height /= 2
                 $(element).css({
                     // 'background-color': 'rgb(29, 83, 43)',
                     'background-image': 'url("'+backgroundImage+'")',
-                    'height': '192px',
+                    'height': height+'px',
                     'background-size': 'contain',
                     'background-position': 'center',
                     'background-repeat': 'no-repeat',
