@@ -47,8 +47,21 @@
         <div class="background" data-bind="click: $parent.closeCard"></div>
         <div class="window">
           <div class="window-header">
+            <div class="d-flex justify-content-between">
             <h2 class="card-title" data-bind="text: name"></h2>
+              <a class="quiet" target="_blank" data-bind="attr:{href: url}">Open</a>
+            </div>
             <p class="quiet u-inline-block u-bottom">in list <a href="#" data-bind="text: function() { return $parent.getListById(idList).name }()"></a></p>
+            <!-- ko if: members -->
+            <div>
+              <span class="quiet strong caps">Members</span>
+              <div class="d-flex">
+                <div class="flex-grow-0" data-bind="foreach: members">
+                  <!-- ko template: 'avatar' --><!-- /ko -->
+                </div>
+              </div>
+            </div>
+            <!-- /ko -->
           </div>
           <div class="window-main-col">
             <div class="row">

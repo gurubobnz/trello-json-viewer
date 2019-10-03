@@ -44,6 +44,8 @@ function Board(data) {
         if(card && action) card.addAction(action)
     }
 
+    self.assignMemberToCard = (member, card) => card.members.push(member)
+
     // Add lists to board
     self.lists(data.lists.filter(list => !list.closed).map(data => new List(data)))
 
@@ -65,6 +67,9 @@ function Board(data) {
     // Assign members to actions
     self.actions().forEach(action => action.setMember(self.getMemberById(action.idMemberCreator)))
 
+    // Assign members to cards
+    self.cards().forEach(card => card.idMembers.forEach(idMember => self.assignMemberToCard(self.getMemberById(idMember), card)))
+
     return self;
 }
 
@@ -84,8 +89,10 @@ function Card(data) {
     var self = this;
     self.id = data.id;
     self.idList = data.idList;
+    self.idMembers = data.idMembers;
     self.name = data.name;
     self.cover = new CardCover(data.cover);
+    self.members = ko.observableArray();
     self.actions = ko.observableArray();
     self.addAction = action => self.actions.push(action)
 
@@ -97,7 +104,10 @@ function Member(data) {
     self.id = data.id;
     self.avatarUrl = ko.pureComputed(() => data.avatarUrl ? data.avatarUrl+'/30.png' : null)
     self.fullName = data.fullName;
+    self.username = data.username;
     self.initials = data.initials;
+
+    self.description = ko.pureComputed(() => self.fullName+' ('+self.username+')')
 }
 
 function CardCover(data) {
