@@ -99,6 +99,15 @@
     </div>
   </script>
 
-
+  <script type="text/html" id="avatar">
+    <!-- ko if: avatarUrl -->
+    <img class="avatar" data-bind="attr:{title: description, src: avatarUrl}" />
+    <!-- /ko -->
+    <!-- ko ifnot: avatarUrl -->
+    <span class="avatar d-flex align-items-center justify-content-center">
+      <span data-bind="text: initials, attr:{title: description}"></span>
+    </span>
+    <!-- /ko -->
+  </script>
 
 </html>
