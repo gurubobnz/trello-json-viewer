@@ -1,4 +1,9 @@
 @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css');  
+
+$color-dark: #172b4d;
+$color-pale-blue: #5ba4cf;
+$color-blue: #0079bf;
 
 html, body, .board {
     width: 100%;
@@ -117,7 +122,7 @@ html, body, .board {
 }
 
 .list-header-name {
-    color: #172b4d;
+    color: $color-dark;
     border-radius: 3px;
     box-shadow: none;
     font-weight: 600;
@@ -160,7 +165,7 @@ html, body, .board {
 }
 
 .list-card-title {
-    color: #172b4d;
+    color: $color-dark;
 }
 
 
@@ -174,6 +179,13 @@ html, body, .board {
 .open-card {
     display: flex;
     justify-content: center;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: $color-dark;
+    }
+
     .background {
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -190,17 +202,60 @@ html, body, .board {
         z-index: 25;
     }
     .window-header {
-        margin: 12px 40px 8px 56px;
+        margin: 12px 20px 8px 56px;
         min-height: 32px;
         position: relative;
         z-index: 1;
     }
+    .window-module {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
     .icon-column {
-        min-width: 40px;
+        flex-grow: 0;
+        width: 60px;
+        font-size: 18px;
+        color: #42526e;
+    }
+
+    .checklist {
+        .progress-bar {
+            background-color: $color-pale-blue;
+        }
+        .progress {
+            background-color: rgba(9,30,66,.08);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .is-not-checked i {
+            @extend .very-quiet;
+        }
+
+        .is-checked {
+            text-decoration: line-through;
+            i {
+                color: $color-blue;
+            }
+        }
+        
     }
 }
 
+
+.strong {
+    font-weight: 500;
+    font-size: 12px;
+}
+.caps {
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.tiny {
+    font-size: 80% !important;
+}
 
 .quiet {
     &, a {
@@ -211,14 +266,19 @@ html, body, .board {
     }
 }
 
+.very-quiet {
+    color: #b6b7bb;
+}
+
 .avatar {
     font-size: 12px;
     font-weight: 700;
     background-color: #dfe1e6;
-    color: #172b4d;
+    color: $color-dark;
     cursor: pointer;
     display: inline-block;
     border-radius: 50%;
     width: 32px;
     height: 32px;
 }
+

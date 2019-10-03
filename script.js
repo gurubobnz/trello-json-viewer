@@ -20,55 +20,64 @@ function Board(data) {
     self.cards = ko.observableArray();
     self.actions = ko.observableArray();
     self.members = ko.observableArray();
+    self.checklists = ko.observableArray();
+
+    self.setDocumentTitle = value => document.title = value+' | #offlinetrello'
 
     self.currentlyOpenCard = ko.observable();    // a card which is open, if any
-    self.openCard = card => self.currentlyOpenCard(card);
-    self.closeCard = () => self.currentlyOpenCard(null);
+    self.openCard = card => {
+        document.location.replace('#card:'+card.shortLink)
+        self.setDocumentTitle(card.name);
+        self.currentlyOpenCard(card);
+    }
+    self.closeCard = () => {
+        document.location.replace('#')
+        self.setDocumentTitle(self.name);
+        self.currentlyOpenCard(null);
+    }
 
     self.prefs = new Prefs(data.prefs);
     
     self.getListById = id => self.lists().filter(list => list.id == id)[0];
     self.getCardById = id => self.cards().filter(card => card.id == id)[0];
+    self.getCardByShortLink = shortLink => self.cards().filter(card => card.shortLink == shortLink)[0];
     self.getActionById = id => self.actions().filter(action => action.id == id)[0];
     self.getMemberById = id => self.members().filter(member => member.id == id)[0];
+    self.getChecklistById = id => self.checklists().filter(checklist => checklist.id == id)[0];
 
-    self.assignCardToList = (listId, cardId) => {
-        var list = self.getListById(listId);
-        var card = self.getCardById(cardId);
-        if(list && card) list.addCard(card);
+    // It is possible for assigning to have nothing to be assigned to.
+    // This is because we exclude closed lists and cards from the board
+    self.assignCardToList = (list, card) => {
+        if(card) list.addCard(card)
     }
 
-    self.assignActionToCard = (actionId, cardId) => {
-        var card = self.getCardById(cardId);
-        var action = self.getActionById(actionId);
-        if(card && action) card.addAction(action)
+    self.assignChecklistToCard = (checklist, card) => {
+        if(card) card.addChecklist(checklist)
     }
 
-    self.assignMemberToCard = (member, card) => card.members.push(member)
+    self.assignActionToCard = (action, card) => {
+        if(card) card.addAction(action);
+    }
 
-    // Add lists to board
+    self.assignMemberToCard = (member, card) => {
+        if(card) card.members.push(member)
+    }
+
+    // Load the root elements into the board
     self.lists(data.lists.filter(list => !list.closed).map(data => new List(data)))
-
-    // Add cards to board
     self.cards(data.cards.filter(card => !card.closed).map(data => new Card(data)))
-
-    // Add actions to board
     self.actions(data.actions.map(data => new Action(data)))
-
-    // Add members to board
     self.members(data.members.map(data => new Member(data)))
+    self.checklists(data.checklists.map(data => new Checklist(data)))
+    self.actions().filter(action => action.data.card).forEach(action => self.assignActionToCard(action, self.getCardById(action.data.card.id)))
 
-    // Assign actions to cards
-    self.actions().filter(action => action.data.card).forEach(action => self.assignActionToCard(action.id, action.data.card.id))
-
-    // Assign cards to lists
-    self.cards().forEach(card => self.assignCardToList(card.idList, card.id))
-
-    // Assign members to actions
+    // Assign items to containers (e.g. cards to lists, members to cards etc.)
+    self.cards().forEach(card => self.assignCardToList(self.getListById(card.idList), card))
     self.actions().forEach(action => action.setMember(self.getMemberById(action.idMemberCreator)))
-
-    // Assign members to cards
     self.cards().forEach(card => card.idMembers.forEach(idMember => self.assignMemberToCard(self.getMemberById(idMember), card)))
+    self.checklists().forEach(checklist => self.assignChecklistToCard(checklist, self.getCardById(checklist.idCard)))
+
+    self.setDocumentTitle(self.name)
 
     return self;
 }
@@ -89,13 +98,16 @@ function Card(data) {
     var self = this;
     self.id = data.id;
     self.url = data.url;
+    self.shortLink = data.shortLink;
     self.idList = data.idList;
     self.idMembers = data.idMembers;
     self.name = data.name;
     self.cover = new CardCover(data.cover);
     self.members = ko.observableArray();
     self.actions = ko.observableArray();
+    self.checklists = ko.observableArray();
     self.addAction = action => self.actions.push(action)
+    self.addChecklist = checklist => self.checklists.push(checklist)
 
     // self.data = data;
 }
@@ -125,6 +137,31 @@ function List(data) {
     self.addCard = card => {
         self.cards.push(card);
     }
+}
+
+function Checklist(data) {
+    var self = this;
+    self.id = data.id;
+    self.idCard = data.idCard;
+    self.name = data.name;
+    self.items = data.checkItems.map(item => new ChecklistItem(item))
+    self.visibleItems = ko.pureComputed(() => self.items.filter(i => self.hideCompleted() ? i.checked() != self.hideCompleted() : true))
+    self.pos = data.pos;
+    self.percentComplete = ko.pureComputed(() => {
+        return (self.items.filter(i => i.checked()).length / self.items.length) * 100;
+    })
+    self.prettyPercentComplete = ko.pureComputed(() => Math.ceil(self.percentComplete())+'%')
+
+    self.hideCompleted = ko.observable(false);
+    self.toggleHideCompleted = () => self.hideCompleted(!self.hideCompleted())
+}
+
+function ChecklistItem(data) {
+    var self = this;
+    self.state = data.state;
+    self.name = data.name;
+    self.pos = data.pos;
+    self.checked = ko.pureComputed(() => self.state == 'complete')
 }
 
 ko.bindingHandlers.trelloBoard = {
@@ -172,4 +209,12 @@ var vm;
 window.onload = () => $.get('trello.json', response => {
     vm = new Trello(response);
     ko.applyBindings(vm);
+
+    // Open card if one in URL:
+    var matches = document.location.hash.match(/card:([0-9A-Za-z]+)/);
+    if(matches) {
+        card = vm.board.getCardByShortLink(matches[1])
+        vm.board.openCard(card)
+    }
+    console.log(matches);
 });
