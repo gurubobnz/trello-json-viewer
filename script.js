@@ -88,6 +88,7 @@ function Action(data) {
 function Card(data) {
     var self = this;
     self.id = data.id;
+    self.url = data.url;
     self.idList = data.idList;
     self.idMembers = data.idMembers;
     self.name = data.name;
