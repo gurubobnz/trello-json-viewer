@@ -79,15 +79,8 @@
 
   <script type="text/html" id="action">
     <div class="row no-gutters d-flex">
-      <div class="col flex-grow-0 pr-2 icon-column">
-        <!-- ko if: member.avatarUrl -->
-        <img class="avatar" data-bind="attr:{src: member.avatarUrl}" />
-        <!-- /ko -->
-        <!-- ko ifnot: member.avatarUrl -->
-        <span class="avatar d-flex align-items-center justify-content-center">
-          <span data-bind="text: member.initials"></span>
-        </span>
-        <!-- /ko -->
+      <div class="col flex-grow-0 pr-2 icon-column" data-bind="with: member">
+        <!-- ko template: 'avatar' --><!-- /ko -->
       </div>
       <div class="col">
         <p>
