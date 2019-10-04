@@ -19,7 +19,8 @@ function Board(data) {
     self.lists = ko.observableArray();
     self.cards = ko.observableArray();
     self.actions = ko.observableArray();
-    self.members = ko.observableArray();
+    self.members = ko.observableArray();        // all members who are on the board and mentioned in actions
+    self.boardMembers = ko.observableArray();   // members who are actually members of the board
     self.checklists = ko.observableArray();
 
     self.setDocumentTitle = value => document.title = value+' | #offlinetrello'
@@ -61,7 +62,7 @@ function Board(data) {
             'moveCardFromBoard'
         ]
         if(actionTypesToIgnore.indexOf(action.type) == -1)
-        if(card) card.addAction(action);
+            if(card) card.addAction(action);
     }
 
     self.assignMemberToCard = (member, card) => {
@@ -72,7 +73,20 @@ function Board(data) {
     self.lists(data.lists.filter(list => !list.closed).map(data => new List(data)))
     self.cards(data.cards.filter(card => !card.closed).map(data => new Card(data)))
     self.actions(data.actions.map(data => new Action(data)))
+
+    // Members of the board
+    self.boardMembers(data.members.map(data => new Member(data)))
+
+    // Members of the board ... and also scan actions for members as the members as per the board are just the current members
     self.members(data.members.map(data => new Member(data)))
+    var memberIds = self.members().map(member => member.id)
+    self.actions().forEach(action => {
+        if(action.memberCreator && memberIds.indexOf(action.memberCreator.id) == -1) {
+            self.members.push(new Member(action.memberCreator))
+            memberIds.push(action.memberCreator.id)
+        }
+    })
+
     self.checklists(data.checklists.map(data => new Checklist(data)))
     self.actions().filter(action => action.data.card).forEach(action => self.assignActionToCard(action, self.getCardById(action.data.card.id)))
 
@@ -92,6 +106,7 @@ function Action(data) {
     self.id = data.id;
     self.member;
     self.idMemberCreator = data.idMemberCreator;
+    self.memberCreator = data.memberCreator;
     self.data = data.data;
     self.type = data.type;
     self.date = data.date;
