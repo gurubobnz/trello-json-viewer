@@ -161,9 +161,7 @@ function Checklist(data) {
     self.items = data.checkItems.map(item => new ChecklistItem(item))
     self.visibleItems = ko.pureComputed(() => self.items.filter(i => self.hideCompleted() ? i.checked() != self.hideCompleted() : true))
     self.pos = data.pos;
-    self.percentComplete = ko.pureComputed(() => {
-        return (self.items.filter(i => i.checked()).length / self.items.length) * 100;
-    })
+    self.percentComplete = ko.pureComputed(() => self.items.length ? (self.items.filter(i => i.checked()).length / self.items.length) * 100 : 0)
     self.prettyPercentComplete = ko.pureComputed(() => Math.ceil(self.percentComplete())+'%')
 
     self.hideCompleted = ko.observable(false);
