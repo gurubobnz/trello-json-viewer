@@ -214,7 +214,7 @@ html, body, .board {
 
     .icon-column {
         flex-grow: 0;
-        width: 60px;
+        min-width: 44px;
         font-size: 18px;
         color: #42526e;
     }
@@ -239,7 +239,14 @@ html, body, .board {
                 color: $color-blue;
             }
         }
-        
+    }
+
+    .card-comment {
+        background: white;
+        padding: 8px 12px;
+        box-shadow: 0 1px 2px -1px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+        margin: 4px 2px 4px 0;
+        display: inline-block;
     }
 }
 
@@ -255,6 +262,11 @@ html, body, .board {
 
 .tiny {
     font-size: 80% !important;
+}
+
+.underlink {
+    color: $color-dark;
+    text-decoration: underline;
 }
 
 .quiet {

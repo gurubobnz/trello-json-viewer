@@ -56,6 +56,11 @@ function Board(data) {
     }
 
     self.assignActionToCard = (action, card) => {
+        var actionTypesToIgnore = [
+            'updateCard',
+            'moveCardFromBoard'
+        ]
+        if(actionTypesToIgnore.indexOf(action.type) == -1)
         if(card) card.addAction(action);
     }
 
@@ -91,7 +96,16 @@ function Action(data) {
     self.type = data.type;
     self.date = data.date;
 
-    self.setMember = member => self.member = member;
+    self.actionTemplate = ko.pureComputed(() => 'action'+self.type.replace(/^./, self.type[0].toUpperCase()))
+    self.prettyDate = ko.pureComputed(() => self.date)
+    self.setMember = member => {
+        self.member = member;
+    }
+
+    self.prettyCardComment = ko.pureComputed(() => {
+        // TODO: markdown conversion
+        return self.data.text
+    })
 }
 
 function Card(data) {

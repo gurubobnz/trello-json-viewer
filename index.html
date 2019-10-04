@@ -90,6 +90,92 @@
     
   </body>
 
+  <!-- ------------------------- Action Templates ------------------------- -->
+
+  <script type="text/html" id="actionMoveCardToBoard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    transferred this card from
+    <a class="underlink" target="_blank" data-bind="text: data.board.name, attr: {href: function() { return 'https://www.trello.com/'+data.board.shortLink }() }"></a>
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionAddAttachmentToCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    attached
+    <a class="underlink" target="_blank" data-bind="text: data.attachment.name, attr: {href: data.attachment.url}"></a>
+    to this card
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionCreateCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    added this card to
+    <span data-bind="text: data.board.name"></span>
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionMoveCardToBoard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    transferred this card to
+    <span data-bind="text: data.board.name"></span>
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+  
+  <script type="text/html" id="actionAddChecklistToCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    added
+    <span data-bind="text: data.checklist.name"></span>
+    to this card
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionRemoveChecklistFromCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    removed
+    <span data-bind="text: data.checklist.name"></span>
+    from this card
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionCommentCard">
+    <div>
+      <!-- ko template: 'memberName' --><!-- /ko -->
+      <span class="quiet" data-bind="text: prettyDate"></span>
+    </div>
+    <div class="card-comment" data-bind="text: prettyCardComment"></div>
+  </script>
+
+  <script type="text/html" id="actionAddMemberToCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    added
+    <strong data-bind="text: data.member.name"></strong>
+    to this card
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionRemoveMemberFromCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    left this card
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionMoveCardFromBoard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    added this card to
+    <span data-bind="text: data.list.name"></span>
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
+  <script type="text/html" id="actionUpdateCheckItemStateOnCard">
+    <!-- ko if: data.checkItem.state == 'complete' -->
+      <!-- ko template: 'memberName' --><!-- /ko -->
+      completed
+      <span data-bind="text: data.checkItem.name"></span>
+      on this card
+      <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+    <!-- /ko -->
+  </script>
+  
   <script type="text/html" id="card">
     <div class="list-card">
       <div class="list-card-cover" data-bind="trelloCardCover: $data"></div>
@@ -99,17 +185,31 @@
     </div>
   </script>
 
+  <script type="text/html" id="memberName">
+    <!-- ko if: member -->
+      <strong data-bind="text: member.fullName"></strong>
+    <!-- /ko -->
+    <!-- ko ifnot: member -->
+      <strong>a removed member</strong>
+    <!-- /ko -->
+  </script>
+
+
+  <script type="text/html" id="actionPrettyDate">
+    <p class="quiet" data-bind="text: prettyDate"></span>
+  </script>
+
   <script type="text/html" id="action">
+    <!-- <span data-bind="text: actionTemplate"></span> -->
+    <!-- <pre data-bind="html: ko.toJSON($data, null, 2)"></pre> -->
     <div class="row no-gutters d-flex">
       <div class="col flex-grow-0 pr-2 icon-column" data-bind="with: member">
         <!-- ko template: 'avatar' --><!-- /ko -->
       </div>
       <div class="col">
-        <p>
-          <!-- <strong data-bind="text: member.fullName"></strong> -->
-          <span class="quiet" data-bind="text: date"></span>
-        </p>
-        <p data-bind="text: ko.toJSON($data, null, 2)"></p>
+        <div>
+          <div data-bind="template: actionTemplate"></div>
+        </div>
       </div>
     </div>
   </script>
