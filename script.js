@@ -49,11 +49,11 @@ function Board(data) {
     // It is possible for assigning to have nothing to be assigned to.
     // This is because we exclude closed lists and cards from the board
     self.assignCardToList = (list, card) => {
-        if(card) list.addCard(card)
+        if(list && card) list.addCard(card)
     }
 
     self.assignChecklistToCard = (checklist, card) => {
-        if(card) card.addChecklist(checklist)
+        if(checklist && card) card.addChecklist(checklist)
     }
 
     self.assignActionToCard = (action, card) => {
