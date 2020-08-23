@@ -96,6 +96,16 @@ function Board(data) {
     self.cards().forEach(card => card.idMembers.forEach(idMember => self.assignMemberToCard(self.getMemberById(idMember), card)))
     self.checklists().forEach(checklist => self.assignChecklistToCard(checklist, self.getCardById(checklist.idCard)))
 
+    // Count items for card cover decorations
+    self.cards().forEach(card => {
+        card.commentCount = card.actions().filter(action => action.type == "commentCard").length;
+        card.checklists().forEach(chklist => {
+            card.taskCountAll = chklist.items.length;
+            card.taskCountComplete = chklist.items.filter(item => item.state == "complete").length;;
+            });
+        card.attachCount = card.actions().filter(action => action.data.attachment).length;
+        });
+
     self.setDocumentTitle(self.name)
 
     return self;
@@ -137,6 +147,11 @@ function Card(data) {
     self.checklists = ko.observableArray();
     self.addAction = action => self.actions.push(action)
     self.addChecklist = checklist => self.checklists.push(checklist)
+    self.labels = data.labels;
+    self.commentCount = 0;
+    self.taskCountAll = 0;
+    self.taskCountComplete = 0;
+    self.attachCount = 0;
 
     // self.data = data;
 }
@@ -233,9 +248,9 @@ ko.bindingHandlers.trelloCardCover = {
 }
 
 
-
+var filename = 'trello.json';
 var vm;
-window.onload = () => $.get('trello.json', response => {
+window.onload = () => $.get(filename, response => {
     vm = new Trello(response);
     ko.applyBindings(vm);
 

@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="script.js"></script>
   </head>
   <body>
@@ -179,8 +180,27 @@
   <script type="text/html" id="card">
     <div class="list-card">
       <div class="list-card-cover" data-bind="trelloCardCover: $data"></div>
+      <span class="list-card-title" data-bind="foreach: labels">
+          <div class="label" data-bind="style: { 'background-color' : color }">
+            <span data-bind="text: name"></span>
+          </div>
+      </span>
       <div class="list-card-details">
         <span class="list-card-title" data-bind="text: name"></span>
+      </div>
+      <div>
+        <span class="list-card-title badge" data-bind="visible: commentCount>0"><i class="material-icons md-12">comment</i>
+            <span class="list-card-title badgecolor" data-bind="text: commentCount"></span>
+        </span>
+        <span class="list-card-title badge" data-bind="visible: attachCount>0"><i class="material-icons md-12 badgecolor">attachment</i>
+            <span class="list-card-title badgecolor" data-bind="text: attachCount"></span>
+        </span>
+        <span class="list-card-title badge" data-bind="visible: taskCountAll>0"><i class="material-icons md-12 badgecolor">check_box</i>
+            <span class="list-card-title badgecolor" data-bind="text: taskCountComplete + '/' + taskCountAll"></span>
+        </span>
+        <span class="list-card-title badge" data-bind="visible: false"><i class="material-icons md-12">all_inbox</i>
+            <span class="list-card-title badgecolor" data-bind="text: commentCount">#</span>
+        </span>
       </div>
     </div>
   </script>
