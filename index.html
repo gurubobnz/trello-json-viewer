@@ -180,26 +180,26 @@
   <script type="text/html" id="card">
     <div class="list-card">
       <div class="list-card-cover" data-bind="trelloCardCover: $data"></div>
-      <span class="list-card-title" data-bind="foreach: labels">
-          <div class="label" data-bind="style: { 'background-color' : color }">
-            <span data-bind="text: name"></span>&nbsp; <!-- In case label name is empty -->
-          </div>
-      </span>
       <div class="list-card-details">
+        <div class="list-card-title" data-bind="foreach: labels">
+            <div class="label" data-bind="style: { 'background-color' : color=='yellow' ? 'gold' : color }">
+              <span data-bind="text: name"></span>&nbsp; <!-- In case label name is empty -->
+            </div>
+        </div>
         <span class="list-card-title" data-bind="text: name"></span>
-      </div>
-      <div data-bind="using: badges">
-        <span class="list-card-title badge" data-bind="visible: description"><i class="fa fa-align-left"></i></span>
-        <span class="list-card-title badge" data-bind="visible: comments>0"><i class="far fa-comment"></i>
-            <span class="list-card-title badgecolor" data-bind="text: comments"></span>
-        </span>
-        <span class="list-card-title badge" data-bind="visible: attachments>0"><i class="fas fa-paperclip"></i>
-            <span class="list-card-title badgecolor" data-bind="text: attachments"></span>
-        </span>
-        <span class="list-card-title badge" data-bind="visible: checkItems>0"><i class="far fa-check-square"></i>
-            <span class="list-card-title badgecolor" data-bind="text: checkItemsChecked + '/' + checkItems"></span>
-        </span>
-      </div>
+        <div data-bind="using: badges">
+            <span class="list-card-title badge" data-bind="visible: description"><i class="fa fa-align-left"></i></span>
+            <span class="list-card-title badge" data-bind="visible: comments>0"><i class="far fa-comment"></i>
+                <span class="list-card-title badgecolor" data-bind="text: comments"></span>
+            </span>
+            <span class="list-card-title badge" data-bind="visible: attachments>0"><i class="fas fa-paperclip"></i>
+                <span class="list-card-title badgecolor" data-bind="text: attachments"></span>
+            </span>
+            <span class="list-card-title badge" data-bind="visible: checkItems>0"><i class="far fa-check-square"></i>
+                <span class="list-card-title badgecolor" data-bind="text: checkItemsChecked + '/' + checkItems"></span>
+            </span>
+        </div>
+        </div>
     </div>
   </script>
 
