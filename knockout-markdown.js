@@ -23,7 +23,10 @@
 			var markdownBinding = allBindings.markdown;
 
             var markdownData = ko.unwrap(markdownBinding);
-            element.innerHTML = ko.markdown.render(markdownData);
+            var formattedData = ko.markdown.render(markdownData);
+            // Custom extension for Trello, to bold any @username tags
+            formattedData = formattedData.replace(/(@\w+)/g,"<b>$1</b>");
+            element.innerHTML = formattedData;
 		}
 	};
 }));
