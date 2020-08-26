@@ -137,6 +137,10 @@ function Card(data) {
     self.checklists = ko.observableArray();
     self.addAction = action => self.actions.push(action)
     self.addChecklist = checklist => self.checklists.push(checklist)
+    // TODO: markdown conversion
+    self.desc = data.desc;
+    self.labels = data.labels;
+    self.badges = data.badges;
 
     // self.data = data;
 }
@@ -233,9 +237,9 @@ ko.bindingHandlers.trelloCardCover = {
 }
 
 
-
+var filename = 'trello.json';
 var vm;
-window.onload = () => $.get('trello.json', response => {
+window.onload = () => $.get(filename, response => {
     vm = new Trello(response);
     ko.applyBindings(vm);
 
