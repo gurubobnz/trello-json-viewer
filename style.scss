@@ -13,6 +13,10 @@ html, body, .board {
     line-height: 20px;
 }
 
+body {
+    overflow: hidden;
+}
+
 #content {
     position: relative;
 }
@@ -41,7 +45,6 @@ html, body, .board {
         width: 100%;
         a {
             color: white;
-            font-weight: bold;
         }
     }
 }
@@ -113,6 +116,8 @@ html, body, .board {
     position: relative;
     white-space: normal;
     margin-bottom: 12px;
+    overflow: auto;
+    max-height: 80vh;
 }
 
 .list-header {

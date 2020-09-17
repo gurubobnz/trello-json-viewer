@@ -13,15 +13,15 @@
   <body>
     <div class="board" data-bind="trelloBoard: board, with: board">
       <div class="header">
-        <span><a href="https://www.github.com/">Offline Trello Browser</a></span>
-        <span>by <a target="_blank" href="https://twitter.com/intent/tweet?via=gurubobnz&hashtags=TrelloOffline">@gurubobnz</a></span>
-      </div>
-      <div class="d-flex justify-content-between board-header">
-        <div class="board-header-btn mod-board-name">
-          <span class="board-header-btn-text" data-bind="text: name"></span>
+        <div class="d-flex align-items-center">
+          <span class="board-header-btn mod-board-name mr-2" data-bind="text: name"></span>
+          <a data-bind="attr: {href:externalUrl}" target="_blank" title="Open in Trello"><i class="fa fa-external-link-alt"></i></a>
+        </div>
+        <div>
+          <span><a href="https://github.com/gurubobnz/trello-json-viewer">via trello-json-viewer</a></span>
         </div>
       </div>
-      <div id="content">
+      <div class="mt-3" id="content">
         <div class="board-wrapper">
           <div data-bind="foreach: lists">
             <!--ko ifnot: closed -->

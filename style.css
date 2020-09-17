@@ -8,6 +8,10 @@ html, body, .board {
   line-height: 20px;
 }
 
+body {
+  overflow: hidden;
+}
+
 #content {
   position: relative;
 }
@@ -37,7 +41,6 @@ html, body, .board {
 }
 .board > .header a {
   color: white;
-  font-weight: bold;
 }
 
 .board-wrapper {
@@ -106,6 +109,8 @@ html, body, .board {
   position: relative;
   white-space: normal;
   margin-bottom: 12px;
+  overflow: auto;
+  max-height: 80vh;
 }
 
 .list-header {

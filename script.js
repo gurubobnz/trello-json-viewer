@@ -16,6 +16,7 @@ function Board(data) {
     self.id = data.id;
     self.desc = data.desc;
     self.name = data.name;
+    self.shortLink = data.shortLink;
     self.lists = ko.observableArray();
     self.cards = ko.observableArray();
     self.actions = ko.observableArray();
@@ -24,6 +25,7 @@ function Board(data) {
     self.checklists = ko.observableArray();
 
     self.setDocumentTitle = value => document.title = value+' | #offlinetrello'
+    self.externalUrl = 'https://trello.com/b/'+self.shortLink;
 
     self.currentlyOpenCard = ko.observable();    // a card which is open, if any
     self.openCard = card => {
