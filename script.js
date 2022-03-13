@@ -220,12 +220,10 @@ ko.bindingHandlers.trelloCardCover = {
         if(coverAttachment.length == 1) {
             var backgroundImage = coverAttachment[0].data.attachment.previewUrl
             if(backgroundImage) {
-                var height = backgroundImage.match(/\/[0-9]+?x([0-9]+)\//)[1]
-                height /= 2
                 $(element).css({
                     // 'background-color': 'rgb(29, 83, 43)',
                     'background-image': 'url("'+backgroundImage+'")',
-                    'height': height+'px',
+                    'height': '100px',
                     'background-size': 'contain',
                     'background-position': 'center',
                     'background-repeat': 'no-repeat',
