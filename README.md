@@ -1,4 +1,5 @@
 # trello-json-viewer
+
 Web UI for reading Trello's JSON archives
 
 To use:
@@ -10,13 +11,10 @@ Doing this from a local folder doesn't work in Chrome but does work in Firefox, 
 
 There are likely to be many issues, feel free to help or log issues.
 
-
 To compile the CSS if you need to:
 
-$ sass style.scss style.css
+$ sass -m style.scss style.css
 
 or if you have docker and don't want to install sass:
 
-$ docker run --rm -v $(pwd):$(pwd) -w $(pwd) jbergknoff/sass style.scss style.css
-
-
+$ docker run --rm -v $(pwd):$(pwd) -w $(pwd) jbergknoff/sass -m style.scss style.css
