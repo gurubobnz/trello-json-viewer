@@ -113,7 +113,7 @@ function Action(data) {
     self.date = data.date;
 
     self.actionTemplate = ko.pureComputed(() => 'action'+self.type.replace(/^./, self.type[0].toUpperCase()))
-    self.prettyDate = ko.pureComputed(() => self.date)
+    self.prettyDate = ko.pureComputed(() => new Date(self.date).toLocaleString());
     self.setMember = member => {
         self.member = member;
     }
