@@ -12,7 +12,6 @@ function Prefs(data) {
 
 function Board(data) {
     var self = this;
-
     self.id = data.id;
     self.desc = data.desc;
     self.name = data.name;
@@ -159,14 +158,14 @@ function Attachment(data) {
 }
 
 function Label(data) {
-	var self = this;
-	self.color = data.color;
-	self.name = data.name;
-	// may need adjustments if some label colours don't show or aren't correct
-	self.backgroundColor =
-		data.color == 'yellow'
-			? 'gold'
-			: data.color;
+    var self = this;
+    self.color = data.color;
+    self.name = data.name;
+    // may need adjustments if some label colours don't show or aren't correct
+    self.backgroundColor =
+        data.color == 'yellow'
+            ? 'gold'
+            : data.color;
 }
 
 function Member(data) {
@@ -287,5 +286,4 @@ window.onload = () => $.get(filename, response => {
         card = vm.board.getCardByShortLink(matches[1])
         vm.board.openCard(card)
     }
-    console.log(matches);
 });
