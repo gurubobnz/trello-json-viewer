@@ -137,6 +137,7 @@ function Card(data) {
     self.members = ko.observableArray();
     self.actions = ko.observableArray();
     self.checklists = ko.observableArray();
+    self.attachments = data.attachments.map(data => new Attachment(data));
     self.addAction = action => self.actions.push(action)
     self.addChecklist = checklist => self.checklists.push(checklist)
     // TODO: markdown conversion
@@ -145,6 +146,16 @@ function Card(data) {
     self.badges = data.badges;
 
     // self.data = data;
+}
+
+function Attachment(data) {
+    var self = this;
+    self.id = data.id;
+    self.bytes = data.bytes;
+    self.date = data.date;
+    self.fileName = data.fileName;
+    self.url = data.url;
+    self.previews = data.previews;
 }
 
 function Label(data) {
@@ -227,19 +238,35 @@ ko.bindingHandlers.trelloCardCover = {
     init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
         var card = valueAccessor();
 
-        var coverAttachment = card.actions().filter(action => action.data.attachment && action.data.attachment.id == card.cover.idAttachment)
-        if(coverAttachment.length == 1) {
-            var backgroundImage = coverAttachment[0].data.attachment.previewUrl
-            if(backgroundImage) {
-                $(element).css({
-                    // 'background-color': 'rgb(29, 83, 43)',
-                    'background-image': 'url("'+backgroundImage+'")',
-                    'height': '100px',
-                    'background-size': 'contain',
-                    'background-position': 'center',
-                    'background-repeat': 'no-repeat',
-                })
+        // See if we can get the cover from the attachments:
+        var coverAttachment;
+        var backgroundImage;
+
+        // Find the cover on the attachments?
+        if(!coverAttachment) {
+            coverAttachment = card.attachments.find(attachment => attachment.id == card.cover.idAttachment);
+            if(coverAttachment) {
+                backgroundImage = coverAttachment.previews && coverAttachment.previews.length > 1 ? coverAttachment.previews[1].url : null;
             }
+        }
+
+        // Find the cover in the actions?
+        if(!coverAttachment) {
+            coverAttachment = card.actions().find(action => action.data.attachment && action.data.attachment.id == card.cover.idAttachment)
+            if(coverAttachment) {
+                backgroundImage = coverAttachment.data.attachment.previewUrl
+            }
+        };
+
+        if(coverAttachment && backgroundImage) {
+            $(element).css({
+                // 'background-color': 'rgb(29, 83, 43)',
+                'background-image': 'url("'+backgroundImage+'")',
+                'height': '165px',
+                'background-size': 'contain',
+                'background-position': 'center',
+                'background-repeat': 'no-repeat',
+            })
         }
     },
     update: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
