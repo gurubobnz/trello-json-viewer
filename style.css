@@ -43,8 +43,9 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0;
-  padding-left: 6px; }
+  bottom: 0; }
+  .board-wrapper > div {
+    display: flex; }
 
 .board-header {
   font-weight: 600;
@@ -81,6 +82,7 @@ body {
   -ms-user-select: none;
   user-select: none;
   width: 272px;
+  flex-shrink: 0;
   margin: 0 2px;
   height: 100%;
   box-sizing: border-box;
@@ -93,11 +95,12 @@ body {
   border-radius: 3px;
   box-sizing: border-box;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   max-height: 100%;
   position: relative;
   white-space: normal;
-  margin-bottom: 12px;
+  margin: 0 0.25rem;
   overflow: auto;
   max-height: 80vh; }
 
