@@ -54,7 +54,7 @@
               <a class="quiet" target="_blank" data-bind="attr:{href: url}">Open</a>
             </div>
             <p class="quiet u-inline-block u-bottom">in list <a href="#" data-bind="text: function() { return $parent.getListById(idList).name }()"></a></p>
-            <!-- ko if: members -->
+            <!-- ko if: members && members.length > 0 -->
             <div>
               <span class="quiet strong caps">Members</span>
               <div class="d-flex">
