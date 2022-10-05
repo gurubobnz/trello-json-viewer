@@ -95,6 +95,13 @@
 
   <!-- ------------------------- Action Templates ------------------------- -->
 
+  <script type="text/html" id="actionEmailCard">
+    <!-- ko template: 'memberName' --><!-- /ko -->
+    emailed this card to
+    <span data-bind="text: data.list.name"></span>
+    <!-- ko template: 'actionPrettyDate' --><!-- /ko -->
+  </script>
+
   <script type="text/html" id="actionMoveCardToBoard">
     <!-- ko template: 'memberName' --><!-- /ko -->
     transferred this card from
