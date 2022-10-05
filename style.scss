@@ -32,8 +32,7 @@ body {
     bottom: 0;
     left: 0;
     > .header {
-        background-color: rgba(0,0,0,.15);
-        color: white;
+        color: $color-dark;
         box-sizing: border-box;
         display: flex;
         align-items: center;
@@ -41,10 +40,12 @@ body {
         justify-content: space-between;
         padding: 4px 8px;
         position: sticky;
+        top: 0;
+        z-index: 10;
         left: 0;
         width: 100%;
         a {
-            color: white;
+            color: $color-dark;
         }
     }
 }
@@ -68,7 +69,7 @@ body {
 
 .board-header-btn {
     border-radius: 3px;
-    color: #fff;
+    color: $color-dark;
     cursor: default;
     float: left;
     font-size: 14px;

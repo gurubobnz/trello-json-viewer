@@ -23,8 +23,7 @@ body {
   bottom: 0;
   left: 0; }
   .board > .header {
-    background-color: rgba(0, 0, 0, 0.15);
-    color: white;
+    color: #172b4d;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -32,10 +31,12 @@ body {
     justify-content: space-between;
     padding: 4px 8px;
     position: sticky;
+    top: 0;
+    z-index: 10;
     left: 0;
     width: 100%; }
     .board > .header a {
-      color: white; }
+      color: #172b4d; }
 
 .board-wrapper {
   position: absolute;
@@ -54,7 +55,7 @@ body {
 
 .board-header-btn {
   border-radius: 3px;
-  color: #fff;
+  color: #172b4d;
   cursor: default;
   float: left;
   font-size: 14px;
