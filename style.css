@@ -264,5 +264,9 @@ body {
   border-radius: 4px;
   margin: 2px;
   padding: 0px 6px; }
+  .label:empty {
+    display: inline-block;
+    width: 50px;
+    height: 12px; }
 
 /*# sourceMappingURL=style.css.map */

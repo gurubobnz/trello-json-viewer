@@ -184,9 +184,7 @@
       <div class="list-card-cover" data-bind="trelloCardCover: $data"></div>
       <div class="list-card-details">
         <div class="list-card-title" data-bind="foreach: labels">
-            <div class="label" data-bind="style: { 'background-color' : color=='yellow' ? 'gold' : color }">
-              <span data-bind="text: name"></span>&nbsp; <!-- In case label name is empty -->
-            </div>
+            <div class="label" data-bind="style: {backgroundColor: backgroundColor}, text: name"></div>
         </div>
         <span class="list-card-title" data-bind="text: name"></span>
         <div data-bind="using: badges">

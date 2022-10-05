@@ -141,10 +141,21 @@ function Card(data) {
     self.addChecklist = checklist => self.checklists.push(checklist)
     // TODO: markdown conversion
     self.desc = data.desc;
-    self.labels = data.labels;
+    self.labels = data.labels.map(data => new Label(data));
     self.badges = data.badges;
 
     // self.data = data;
+}
+
+function Label(data) {
+	var self = this;
+	self.color = data.color;
+	self.name = data.name;
+	// may need adjustments if some label colours don't show or aren't correct
+	self.backgroundColor =
+		data.color == 'yellow'
+			? 'gold'
+			: data.color;
 }
 
 function Member(data) {
