@@ -193,6 +193,9 @@ body {
     min-width: 44px;
     font-size: 18px;
     color: #42526e; }
+  .open-card p.description a {
+    text-decoration: underline;
+    color: #0052cc; }
   .open-card .checklist .progress-bar {
     background-color: #5ba4cf; }
   .open-card .checklist .progress {
