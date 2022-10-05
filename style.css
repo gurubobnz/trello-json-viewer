@@ -158,7 +158,6 @@ body {
 .open-card {
   display: flex;
   justify-content: center;
-  position: fixed;
   z-index: 1000;
   width: 100%; }
   .open-card h3 {
@@ -262,5 +261,4 @@ body {
   margin: 2px;
   padding: 0px 6px; }
 
-.description {
-  white-space: pre-wrap; }
+/*# sourceMappingURL=style.css.map */

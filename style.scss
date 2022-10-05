@@ -186,7 +186,6 @@ body {
 .open-card {
     display: flex;
     justify-content: center;
-    position: fixed;
     z-index: 1000;
     width: 100%;
 
@@ -321,8 +320,4 @@ body {
     border-radius: 4px;
     margin: 2px;
     padding: 0px 6px;
-}
-
-.description {
-    white-space: pre-wrap;
 }
