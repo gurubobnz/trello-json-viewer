@@ -7,6 +7,8 @@ To use:
 1. Place your trello.json export in the same directory as index.html
 2. Browse to index.html
 
+If you're looking for a Trello JSON file to play with, get this one from Trello themselves: https://trello.com/b/HbTEX5hb/employee-manual.json
+
 Doing this from a local folder doesn't work in Chrome but does work in Firefox, otherwise host it through a server.
 
 There are likely to be many issues, feel free to help or log issues.
