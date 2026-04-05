@@ -26,13 +26,14 @@ body {
     overflow-x: auto;
     // overflow-y: hidden;
     padding-bottom: 8px;
+    margin-top: 2em;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     > .header {
-        color: $color-dark;
+        color: white;
         box-sizing: border-box;
         display: flex;
         align-items: center;
@@ -45,7 +46,7 @@ body {
         left: 0;
         width: 100%;
         a {
-            color: $color-dark;
+            color: white;
         }
     }
 }
@@ -200,7 +201,7 @@ body {
     }
 
     .background {
-        position: fixed;
+        position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
         z-index: 10;
         background-color: rgba(0,0,0,0.64);

@@ -273,11 +273,35 @@ ko.bindingHandlers.trelloCardCover = {
     }
 }
 
-
-var filename = 'trello.json';
 var vm;
-window.onload = () => $.get(filename, response => {
-    vm = new Trello(response);
+
+// Setup the hide empty lanes button
+document.querySelectorAll("#hide-empty-lanes").forEach(btn => {
+    btn.addEventListener('click', () => {
+        const columns = document.querySelectorAll("#content .board-wrapper .list-wrapper");
+
+        columns.forEach(column => {
+            const cardsWrapper = column.querySelectorAll("div[data-bind='foreach: cards']");
+            cardsWrapper.forEach(card => {
+                if (card.children.length == 0) {
+                    column.style.display = "none";
+                }
+            });
+        });
+    });
+});
+
+// Allow file picker
+document.getElementById('json-picker').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+        document.getElementById('json-result').innerText = "Invalid file! Refresh the webpage and try again!";
+        return;
+    }
+
+    const fileContents = await file.text();
+
+    vm = new Trello(JSON.parse(fileContents));
     ko.applyBindings(vm);
 
     // Open card if one in URL:
@@ -286,4 +310,7 @@ window.onload = () => $.get(filename, response => {
         card = vm.board.getCardByShortLink(matches[1])
         vm.board.openCard(card)
     }
+
+    document.getElementById('json-result').innerText = "Trello board export is loaded. To load another board, refresh the webpage first!";
+    document.getElementById('json-picker').disabled = true;
 });

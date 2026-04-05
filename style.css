@@ -17,13 +17,14 @@ body {
   margin-bottom: 8px;
   overflow-x: auto;
   padding-bottom: 8px;
+  margin-top: 2em;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0; }
   .board > .header {
-    color: #172b4d;
+    color: white;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -36,7 +37,7 @@ body {
     left: 0;
     width: 100%; }
     .board > .header a {
-      color: #172b4d; }
+      color: white; }
 
 .board-wrapper {
   position: absolute;
@@ -56,7 +57,7 @@ body {
 
 .board-header-btn {
   border-radius: 3px;
-  color: #172b4d;
+  color: white;
   cursor: default;
   float: left;
   font-size: 14px;
@@ -169,7 +170,7 @@ body {
     font-weight: 600;
     color: #172b4d; }
   .open-card .background {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;

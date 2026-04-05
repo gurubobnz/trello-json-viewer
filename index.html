@@ -10,14 +10,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/11.0.0/markdown-it.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="knockout-markdown.js"></script>
-    <script src="script.js"></script>
   </head>
   <body>
+    <div style="position:absolute;z-index:999;background:white;width:100%;"><input type="file" id="json-picker" accept=".json" />&nbsp;<span id="json-result"><-- Pick a .json file of Trello board export, or <a href="https://trello.com/b/HbTEX5hb/employee-manual.json" target="_blank" download>download</a> an example.</span></div>
     <div class="board" data-bind="trelloBoard: board, with: board">
       <div class="header" data-bind="style: {backgroundColor: prefs.backgroundTopColor}">
         <div class="d-flex align-items-center">
           <span class="board-header-btn mod-board-name mr-2" data-bind="text: name"></span>
           <a data-bind="attr: {href:externalUrl}" target="_blank" title="Open in Trello"><i class="fa fa-external-link-alt"></i></a>
+        </div>
+        <div>
+          <span class="small"><button style="font-weight:bold;" id="hide-empty-lanes">Hide Empty Lanes</button></span>
         </div>
         <div>
           <span class="small"><a href="https://github.com/gurubobnz/trello-json-viewer">gurubobnz/trello-json-viewer</a></span>
@@ -45,7 +48,7 @@
       </div>
 
       <!-- ko if: currentlyOpenCard -->
-      <div class="open-card" data-bind="with: currentlyOpenCard">
+      <div class="open-card" data-bind="with: currentlyOpenCard" >
         <div class="background" data-bind="click: $parent.closeCard"></div>
         <div class="window">
           <div class="window-header">
@@ -90,7 +93,7 @@
       </div>
       <!-- /ko -->
     </div>
-    
+    <script src="script.js"></script>
   </body>
 
   <!-- ------------------------- Action Templates ------------------------- -->
